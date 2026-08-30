@@ -259,7 +259,7 @@ function Hero() {
 }
 
 function LogoTicker() {
-  const items = ['AZURE', 'BICEP', 'TERRAFORM', 'GITHUB ACTIONS', 'ENTRA ID', 'MONITOR']
+  const items = ['AZURE', 'TERRAFORM', 'DOCKER COMPOSE', 'NGINX', 'FASTAPI', 'GITHUB ACTIONS', 'MONITOR']
   return (
     <div className="ticker" aria-label="Technologies">
       <div className="ticker-track">
@@ -288,7 +288,15 @@ function ProjectCard({ project }: { project: Project }) {
       <h3>{project.title}</h3>
       <p>{project.summary}</p>
       <div className="project-services">{project.services.map(service => <span key={service}>{service}</span>)}</div>
-      {project.href && <a href={project.href}>View case study <Icon name="arrow" size={16} /></a>}
+      {project.links && (
+        <div className="project-links">
+          {project.links.map(link => (
+            <a href={link.href} target="_blank" rel="noreferrer" key={link.href}>
+              {link.label} <Icon name="arrow" size={16} />
+            </a>
+          ))}
+        </div>
+      )}
     </article>
   )
 }
@@ -297,7 +305,7 @@ type TerminalLine = { type: 'command' | 'response' | 'accent'; text: string }
 
 const initialTerminalLines: TerminalLine[] = [
   { type: 'command', text: 'az portfolio list --status published' },
-  { type: 'response', text: 'No published builds yet. Build 001 is in progress.' },
+  { type: 'response', text: projects.length ? `Published builds: ${projects.map(project => project.title).join(' · ')}` : 'No published builds yet. Build 001 is in progress.' },
 ]
 
 function InteractiveTerminal() {
@@ -328,12 +336,12 @@ function InteractiveTerminal() {
       response = 'Commands: help · list · skills · roadmap · whoami · clear'
       type = 'accent'
     } else if (normalized === 'list' || normalized.includes('portfolio list')) {
-      response = 'No published builds yet. Build 001 is currently in progress.'
+      response = projects.length ? `Published builds: ${projects.map(project => project.title).join(' · ')}` : 'No published builds yet. Build 001 is currently in progress.'
     } else if (normalized === 'skills') {
-      response = 'Azure · Bicep · Terraform · GitHub Actions · Entra ID · Monitor'
+      response = 'Azure · Terraform · Docker Compose · Nginx · FastAPI · Entra ID · Monitor'
       type = 'accent'
     } else if (normalized === 'roadmap') {
-      response = '01 Cloud portfolio → 02 Secure landing zone → 03 Observable workload'
+      response = '001 Containerized Azure web stack -> 002 Secure landing zone -> 003 Observable workload'
     } else if (normalized === 'whoami') {
       response = 'Abdikarim — Azure engineer, architecture thinker, documenting the climb.'
     } else if (normalized.includes('deploy')) {
@@ -499,7 +507,7 @@ function App() {
       entries => entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible')),
       { threshold: 0.12 },
     )
-    document.querySelectorAll('.section-heading, .capability-card, .empty-projects, .principles-visual, .principles-copy, .roadmap-list article').forEach(element => observer.observe(element))
+    document.querySelectorAll('.section-heading, .project-card, .capability-card, .empty-projects, .principles-visual, .principles-copy, .roadmap-list article').forEach(element => observer.observe(element))
     return () => observer.disconnect()
   }, [])
 
