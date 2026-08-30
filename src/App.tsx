@@ -279,25 +279,76 @@ function SectionHeading({ number, label, title, body }: { number: string; label:
   )
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, onOpen }: { project: Project; onOpen: (project: Project) => void }) {
   return (
     <article className={`project-card accent-${project.accent}`}>
-      <div className="project-card-top"><span>{project.id}</span><span className={`project-status ${project.status}`}>{project.status}</span></div>
-      <div className="project-icon"><Icon name="layers" size={28} /></div>
-      <p className="project-category">{project.category}</p>
-      <h3>{project.title}</h3>
-      <p>{project.summary}</p>
-      <div className="project-services">{project.services.map(service => <span key={service}>{service}</span>)}</div>
-      {project.links && (
-        <div className="project-links">
-          {project.links.map(link => (
-            <a href={link.href} target="_blank" rel="noreferrer" key={link.href}>
-              {link.label} <Icon name="arrow" size={16} />
-            </a>
-          ))}
-        </div>
-      )}
+      <button className="project-card-action" type="button" onClick={() => onOpen(project)} aria-label={`Read the ${project.title} case study`}>
+        <div className="project-card-top"><span>{project.id}</span><span className={`project-status ${project.status}`}>{project.status}</span></div>
+        <div className="project-icon"><Icon name="layers" size={28} /></div>
+        <p className="project-category">{project.category}</p>
+        <h3>{project.title}</h3>
+        <p className="project-summary">{project.summary}</p>
+        <div className="project-services">{project.services.map(service => <span key={service}>{service}</span>)}</div>
+        <span className="project-read">Read case study <Icon name="arrow" size={16} /></span>
+      </button>
     </article>
+  )
+}
+
+function ProjectCaseStudy({ project, onClose }: { project: Project; onClose: () => void }) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    const closeOnEscape = (event: globalThis.KeyboardEvent) => event.key === 'Escape' && onClose()
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', closeOnEscape)
+    closeButtonRef.current?.focus()
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [onClose])
+
+  return (
+    <div className="project-dialog-backdrop" role="presentation" onMouseDown={event => event.target === event.currentTarget && onClose()}>
+      <section className="project-dialog" role="dialog" aria-modal="true" aria-labelledby={`project-title-${project.id}`}>
+        <div className="project-dialog-header">
+          <span className="project-dialog-id">CASE STUDY / {project.id}</span>
+          <button className="project-close" type="button" onClick={onClose} ref={closeButtonRef} aria-label="Close case study"><Icon name="x" size={20} /></button>
+        </div>
+        <div className="project-dialog-content">
+          <div className="project-dialog-intro">
+            <span className={`project-status ${project.status}`}>{project.status}</span>
+            <p className="project-category">{project.category}</p>
+            <h2 id={`project-title-${project.id}`}>{project.title}</h2>
+            <p>{project.caseStudy.overview}</p>
+            <div className="project-services">{project.services.map(service => <span key={service}>{service}</span>)}</div>
+          </div>
+
+          <div className="case-study-section">
+            <span className="case-study-label">Architecture flow</span>
+            <div className="architecture-flow">
+              {project.caseStudy.architecture.map((item, index) => (
+                <div className="architecture-step" key={item.title}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <div><h3>{item.title}</h3><p>{item.detail}</p></div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="case-study-section case-study-highlights">
+            <span className="case-study-label">Key decisions</span>
+            {project.caseStudy.highlights.map(item => (
+              <article key={item.title}><h3>{item.title}</h3><p>{item.detail}</p></article>
+            ))}
+          </div>
+
+          <aside className="operating-note"><Icon name="pulse" size={18} /><p><strong>Current deployment state</strong>{project.caseStudy.operatingNote}</p></aside>
+          <a className="button button-primary project-repository" href={project.repository} target="_blank" rel="noreferrer">View source on GitHub <Icon name="github" size={17} /></a>
+        </div>
+      </section>
+    </div>
   )
 }
 
@@ -381,11 +432,13 @@ function InteractiveTerminal() {
 }
 
 function Projects() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+
   return (
     <section className="section projects shell" id="work">
       <SectionHeading number="01" label="Selected work" title={<>Built to be understood.<br /><em>Not just deployed.</em></>} body="Each project will unpack the architecture, infrastructure as code, security choices, observability, and the lessons learned along the way." />
       {projects.length > 0 ? (
-        <div className="project-grid">{projects.map(project => <ProjectCard project={project} key={project.id} />)}</div>
+        <div className="project-grid">{projects.map(project => <ProjectCard project={project} onOpen={setSelectedProject} key={project.id} />)}</div>
       ) : (
         <div className="empty-projects">
           <InteractiveTerminal />
@@ -397,6 +450,7 @@ function Projects() {
           </div>
         </div>
       )}
+      {selectedProject && <ProjectCaseStudy project={selectedProject} onClose={() => setSelectedProject(null)} />}
     </section>
   )
 }
