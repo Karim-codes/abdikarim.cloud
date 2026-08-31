@@ -561,7 +561,7 @@ function App() {
       entries => entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible')),
       { threshold: 0.12 },
     )
-    document.querySelectorAll('.section-heading, .project-card, .capability-card, .empty-projects, .principles-visual, .principles-copy, .roadmap-list article').forEach(element => observer.observe(element))
+    document.querySelectorAll('.section-heading, .project-card, .capability-card, .empty-projects, .principles-visual, .principles-copy, .roadmap-list, .roadmap-list article').forEach(element => observer.observe(element))
     return () => observer.disconnect()
   }, [])
 
