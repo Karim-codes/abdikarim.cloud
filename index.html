@@ -1,16 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#06111f" />
-    <meta name="description" content="Abdikarim Ahmed's Azure engineering portfolio — cloud architecture, infrastructure as code, security, and DevOps projects." />
-    <meta property="og:title" content="Abdikarim Cloud — Azure engineering portfolio" />
-    <meta property="og:description" content="Cloud systems, thoughtfully architected and openly documented." />
-    <title>Abdikarim Cloud — Azure Architecture & Engineering</title>
+    <meta name="theme-color" content="#191a1c" />
+    <meta name="description" content="Enterprise IT experience, hands-on Azure infrastructure and independent software projects. Abdikarim Ahmed, based in London." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Abdikarim" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content="Abdikarim — IT, cloud &amp; software engineering" />
+    <meta property="og:description" content="Enterprise IT experience, hands-on Azure infrastructure and independent software projects. Abdikarim Ahmed, based in London." />
+    <meta property="og:url" content="https://abdikarim.cloud/" />
+    <meta property="og:image" content="https://abdikarim.cloud/social-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Abdikarim. Building technology. Solving real problems." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Abdikarim — IT, cloud &amp; software engineering" />
+    <meta name="twitter:description" content="Enterprise IT experience, hands-on Azure infrastructure and independent software projects. Abdikarim Ahmed, based in London." />
+    <meta name="twitter:image" content="https://abdikarim.cloud/social-preview.png" />
+    <link rel="canonical" href="https://abdikarim.cloud/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Abdikarim — IT, cloud &amp; software engineering</title>
+    <script>
+      (() => { try { const p = localStorage.getItem('portfolio-theme'); const t = p === 'dark' || p === 'light' ? p : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; document.documentElement.dataset.theme = t; document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#191a1c' : '#f7f6f2'; } catch {} })();
+    </script>
+    <script id="structured-data" type="application/ld+json"><!--structured-data--></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root" data-route="/"><!--app-html--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

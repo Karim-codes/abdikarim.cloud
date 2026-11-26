@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://abdikarim.cloud/sitemap.xml
