@@ -10,6 +10,7 @@ export interface Project {
   status: ProjectStatus
   published: boolean
   featured: boolean
+  latest?: boolean
   order: number
   lastUpdated: string
   stack: string[]
@@ -17,6 +18,7 @@ export interface Project {
   screenshots: { src: string; srcSet?: string; width?: number; height?: number; alt: string; caption: string }[]
   repository?: string
   liveUrl?: string
+  liveLabel?: string
   appStoreUrl?: string
   overview: string
   problem: string

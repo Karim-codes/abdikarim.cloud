@@ -55,7 +55,7 @@ The typed registry is `content/projects.ts`, with the `Project` model in `src/ty
 1. Copy an existing entry and give it a unique lowercase hyphenated `slug`.
 2. Add verified descriptions, scope, decisions, challenges and development status.
 3. Set `published: false` until ownership, content, links, screenshots and status are reviewed.
-4. Use `featured: true` for the homepage, and `order` to control sorting. Update `lastUpdated` when the write-up is reviewed.
+4. Use `featured: true` for the homepage, `order` to control sorting, and `latest: true` to label the latest work. Use `liveLabel` to customise the live-app link text. Update `lastUpdated` when the write-up is reviewed.
 5. Keep original screenshots in `content/assets/` and generate publication-approved previews under `public/projects/`. Each screenshot needs descriptive alternative text and a caption identifying its provenance. Avoid private data and do not substitute generated application screens.
 6. Set `published: true` to automatically create the showcase, filter category, case-study route and sitemap entry on the next build. No route file needs editing.
 

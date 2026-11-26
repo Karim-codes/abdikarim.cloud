@@ -63,18 +63,20 @@ export const projectRegistry: Project[] = [
   },
   {
     slug: 'shaanis', title: 'Shaanis', subtitle: 'Traditional rules. A shared engine. A digital table.',
-    summary: 'A completed Somali card game, live on iOS, with a shared Dart rules engine, private multiplayer and offline play.',
-    category: 'Games', status: 'Completed', published: true, featured: true, order: 3, lastUpdated: '2026-11-26',
+    summary: 'A Somali card game, live on web and iOS, with a shared Dart rules engine, private multiplayer and offline play.',
+    category: 'Games', status: 'Completed', published: true, featured: true, latest: true, order: 0, lastUpdated: '2026-11-26',
     stack: ['Flutter', 'Dart', 'WebSockets', 'Cloudflare Workers'], preview: 'shaanis',
+    liveUrl: 'https://shaanis.com/',
+    liveLabel: 'Play on web',
     appStoreUrl: 'https://apps.apple.com/gb/app/shaanis/id6823233140',
     screenshots: [
       { src: '/projects/shaanis-home.webp', srcSet: '/projects/shaanis-home-195.webp 195w, /projects/shaanis-home.webp 390w', alt: 'Shaanis Flutter home screen with private online, team, computer and pass-and-play options', caption: 'Actual Flutter widget render of the Shaanis game menu.' },
       { src: '/projects/shaanis-table.webp', srcSet: '/projects/shaanis-table-195.webp 195w, /projects/shaanis-table.webp 390w', alt: 'Shaanis offline table showing four table cards, a player hand and round progress', caption: 'Actual Flutter widget render with an offline test fixture and example players.' },
     ],
-    overview: 'Shaanis brings a traditional Somali card game to digital play and is live on iOS. The completed app separates a pure Dart rules engine, Flutter presentation and a real-time authority layer. Offline pass-and-play and private online formats share the same core rules.',
+    overview: 'Shaanis is my latest project: a traditional Somali card game available as a web app and an iOS app. The completed app separates a pure Dart rules engine, Flutter presentation and a real-time authority layer. Offline pass-and-play and private online formats share the same core rules.',
     problem: 'Digitalising a traditional game means making its rules precise while preserving the way people play. Captures, redeals, grouped builds, final settlement and hidden hands all need consistent treatment across devices and game formats.',
     approach: 'Keep rule legality and outcomes in one shared Dart engine. Flutter sends player intent and renders a permitted view. The online adapter invokes the compiled engine rather than independently rewriting game rules in TypeScript. Local practice uses its own session, separate from online identity and results.',
-    implemented: ['Pure Dart rules engine, state transitions and settlement', 'Flutter offline pass-and-play with private handoff', 'Private 1v1 and team 2v2 multiplayer', 'WebSocket commands and seat-specific redacted game views', 'Reconnect and persistence handling in the online authority', 'Offline computer opponent', 'Accounts, public profiles and competitive statistics', 'Team play validated with real users', 'Physical-device and release acceptance testing completed', 'Engine, client and authority regression test suites', 'Released on the iOS App Store'],
+    implemented: ['Pure Dart rules engine, state transitions and settlement', 'Flutter offline pass-and-play with private handoff', 'Private 1v1 and team 2v2 multiplayer', 'WebSocket commands and seat-specific redacted game views', 'Reconnect and persistence handling in the online authority', 'Offline computer opponent', 'Accounts, public profiles and competitive statistics', 'Team play validated with real users', 'Physical-device and release acceptance testing completed', 'Engine, client and authority regression test suites', 'Released as a web app and on the iOS App Store'],
     planned: [],
     decisions: [
       { title: 'One source of gameplay truth', body: 'The pure Dart engine owns legal moves and settlement. Reusing its compiled form at the online boundary avoids parallel rule implementations drifting apart.' },
@@ -86,7 +88,7 @@ export const projectRegistry: Project[] = [
       { title: 'Consistency through retries and reconnection', body: 'The authority persists accepted state and handles reconnecting clients. Regression suites cover hidden information, move sequencing, persistence and supported match formats.' },
     ],
     lessons: 'Rules, network authority and presentation have different responsibilities. Keeping those boundaries clear makes it easier to test game behaviour and add formats without trusting the client with hidden state or outcomes.',
-    statusNote: 'Completed and live on iOS. Team-play validation, physical-device testing and release acceptance are complete. The app includes accounts, public profiles and competitive statistics alongside online multiplayer and offline play.',
+    statusNote: 'Completed and live on web and iOS. Team-play validation, physical-device testing and release acceptance are complete. The app includes accounts, public profiles and competitive statistics alongside online multiplayer and offline play.',
   },
   {
     slug: 'polyglotpdf', title: 'PolyGlotPDF', subtitle: 'AI-powered document translation.',

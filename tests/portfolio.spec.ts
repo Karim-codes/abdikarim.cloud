@@ -148,7 +148,7 @@ test('keyboard skip link, new-route scrolling and history restoration work', asy
   await page.keyboard.press('Enter')
   await expect(page.locator('main')).toBeFocused()
   await page.goto('/projects')
-  const link=page.getByRole('link',{name:'Read case study',exact:true}).nth(1)
+  const link=page.locator('.project-feature').filter({has:page.getByRole('heading',{name:'Qasd',exact:true})}).getByRole('link',{name:'Read case study',exact:true})
   await link.scrollIntoViewIfNeeded()
   const previous=await page.evaluate(()=>scrollY)
   await link.click()
